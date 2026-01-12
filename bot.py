@@ -26,11 +26,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Configuration from environment variables
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-ADMIN_USER_IDS = [int(uid) for uid in os.getenv('ADMIN_USER_IDS', '').split(',') if uid]
-GOOGLE_CREDENTIALS_JSON = os.getenv('GOOGLE_CREDENTIALS_JSON')
-GOOGLE_DRIVE_FOLDER_ID = os.getenv('GOOGLE_DRIVE_FOLDER_ID', '')
+# Configuration (hardcoded)
+TELEGRAM_BOT_TOKEN = '8493579116:AAF2VDOfLQlazUbB2YagkAbAusstDG7xjlQ'
+ADMIN_USER_IDS = [8285783077]
+GOOGLE_CREDENTIALS_JSON = '{"type":"service_account","project_id":"drive-uploader-484112","private_key_id":"9e376f7fc6acea01c279f26b5209a8f91abe2a99","private_key":"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGPkDN5VRfi+0G\\noOdLRbkyzulnyLfCdhUTM6R8hFfTbQ0fYOdUaCF7hYUlEM1e0YRJyngEOOkPFcRy\\nU28lGn1qAQpGpsfMr+jaxPx+SM4UU2yd8SKjvD17gwkus3FpwHpBr64jCOepuvXX\\nNX9v8lXFjMskuNeMYOzfxW1qgcojafNNzBpwGLFfuXCSODhBKUe59+9vFP/fEihC\\nvg0bDRCaCW70ZTfaqYc0cng1WXl2AutEi/ZTtnSpzYmbwjl3THE/u+jxOnbBX9y+\\nIrSZu3h6uLvLfhQHmzaq6kQLPkIq72aT1M2VJS2z/fV0GDCcPMZVogUC4epb/581\\nTRlZogEDAgMBAAECggEATQRgft1Kkzg0ZK/cS/URhzi1mxlysrzXYTdd/vYXfM9Q\\nGtG17afq4ic0W/sUHnM9dsGPMOy/NpoZUOUzN/H7qVQwHtSqqM3qpBuFkLZOQb1L\\nZG0LLRtzs2lsBtW2CQS7Oou7FmdeQSWeXvasxNwcEHyra1/YdfQt8p2r7YXw9yKC\\nHfQzT5p6VMLmnrSdgDPDhoxZ/bbEux+XneL8u0lRVF0lsjUECRMl9LmfIWCw/OPO\\nHGhO9WvFRD/WhmiIdfOyPu/dny8xsVVuVYl7jqMSUO7egx5OuWFE8mzmoCbgC2ze\\nJMBl6AfGNMYh2ntKwMJBel7hLuHlAuFbwFN6DHN/SQKBgQDszqkGHJtwlDY/82VS\\nrMbYioiVXR692EjxKkjLL2Ne4WkOsqLFWRAzjS7KP8bntdcqnUlTPiCS4oDF9fg9\\nD6oI2uHeIzMiCnGBMfQ2Y9JtpLD3pPnsvPPbXY06udCNvULKReVow6kk0eZJMR8+\\nEQrnAaxC98on4A3Vcwn0cuSBzQKBgQDWT3R3+qtLMvY7EjKqKzsdEPiFb1n3AA5k\\nt+2IzX0Q1K8djRdqjVnU6p/U0f26PqZT/cF42QJfyFB3c5DTsFuSOYkRI4EseIVe\\n8kSKsnr8N3UdkOpuLfz33YcYIMJfX6OQ1gIwdbB0/BH0oN7vEHfmdd7brMUXhzZD\\ne6Bgakn+DwKBgFarZG1aNwHDHP/W4zSZC8XhHhAcns24xSmO4kmLNIFbWooIk05L\\nRIS5nXBkWzYe9XshSd7vlBhuUdciKRKgEwleouAcXfCNhfFVCR6G9lMuvZ5FgTtG\\nBLI60R+3Nj9KD5HcdxQa2GMjd3c+RUMAFc9qa1OvQQvLEwUWL4SKMFvZAoGBAIai\\nm/TUEdDIT1CE+jdVuWllQ/vwHIDEFEbKFfwfvDZapzjVbqSN8KWGUKsO0Wuz+CJE\\nBMu66XbrDUI94/pZjO2sH6QYvgoGHSOs58qKniDdZkIQzHYzhfzhuwE5c2MfXk6b\\nY/y1swmLYmxgtC1UFz89RaiUPa2uUDTM8dAgdiOZAoGBAMkWL59tQOPEIEXPpgiz\\ntz/hF+TAKa5+XpbH4oYtfRFVdaobE1Pv8bw6j4oWtgRTDgpBkc7VoqRwlcVyvFJK\\n7pcsxVgzlV2jiyJ0OknZo/eic6/905Ib8cHbLF3xLqAc68z6mkCViBOpyqVif9t+\\n1QncrbPIQgrWx60nV8GopoIL\\n-----END PRIVATE KEY-----\\n","client_email":"telegramdrivebot@drive-uploader-484112.iam.gserviceaccount.com","client_id":"114462441351878653052","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/telegramdrivebot%40drive-uploader-484112.iam.gserviceaccount.com","universe_domain":"googleapis.com"}'
+GOOGLE_DRIVE_FOLDER_ID = '1mwbQSzvmjq68pOJjemuk02fa7pNux0kO'
 
 # Upload queue
 upload_queue = deque()
@@ -367,12 +367,7 @@ async def set_folder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     """Main function to run the bot"""
-    if not TELEGRAM_BOT_TOKEN:
-        raise ValueError("TELEGRAM_BOT_TOKEN not set!")
-    if not GOOGLE_CREDENTIALS_JSON:
-        raise ValueError("GOOGLE_CREDENTIALS_JSON not set!")
-    if not ADMIN_USER_IDS:
-        raise ValueError("ADMIN_USER_IDS not set!")
+    # Credentials are now hardcoded, no validation needed
     
     # Create application
     application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
